@@ -33,35 +33,119 @@ return {
 	-- add lspconfig
 	{
 		"neovim/nvim-lspconfig",
-		init = function()
-			local keys = require("lazyvim.plugins.lsp.keymaps").get()
-			keys[#keys + 1] = { "<C-]>", vim.lsp.buf.definition, desc = "Goto definition" }
-			keys[#keys + 1] = {
-				"gr",
-				function()
-					require("telescope.builtin").lsp_references({ jump_type = "never" })
-				end,
-				desc = "References",
-			}
-		end,
-		---@class PluginLspOpts
-		opts = {
-			diagnostics = {
-				underline = false,
-				virtual_text = false,
-				signs = false,
-				severity_sort = true,
-			},
-			---@type lspconfig.options
-			servers = {
-				gopls = {
-					--memoryMode = "DegradeClosed",
-				},
-				lua_ls = {
-					mason = false,
-					enabled = false,
-				},
+		keys = {
+			{
+				"<C-]>",
+				vim.lsp.buf.definition,
+				desc = "Goto definition",
 			},
 		},
+		opts = function()
+			local keys = require("lazyvim.plugins.lsp.keymaps").get()
+			keys[#keys + 1] = { "<C-]>", vim.lsp.buf.definition, desc = "Goto definition" }
+
+			vim.diagnostic.disable()  -- 全局禁用所有诊断
+
+			---@class PluginLspOpts
+			local ret = {
+				-- options for vim.diagnostic.config()
+				---@type vim.diagnostic.Opts
+				diagnostics = {
+					underline = false,
+					update_in_insert = false,
+					virtual_text = false,
+					severity_sort = false,
+					signs = false,
+					float = false,
+				},
+				-- Enable this to enable the builtin LSP inlay hints on Neovim >= 0.10.0
+				-- Be aware that you also will need to properly configure your LSP server to
+				-- provide the inlay hints.
+				inlay_hints = {
+					enabled = false,
+					exclude = { "vue" }, -- filetypes for which you don't want to enable inlay hints
+				},
+				-- Enable this to enable the builtin LSP code lenses on Neovim >= 0.10.0
+				-- Be aware that you also will need to properly configure your LSP server to
+				-- provide the code lenses.
+				codelens = {
+					enabled = false,
+				},
+				-- add any global capabilities here
+				capabilities = {
+					workspace = {
+						fileOperations = {
+							didRename = true,
+							willRename = true,
+						},
+					},
+				},
+				-- options for vim.lsp.buf.format
+				-- `bufnr` and `filter` is handled by the LazyVim formatter,
+				-- but can be also overridden when specified
+				format = {
+					formatting_options = nil,
+					timeout_ms = nil,
+				},
+				-- LSP Server Settings
+				---@type lspconfig.options
+				servers = {
+					lua_ls = {
+						mason = false,
+						enabled = false,
+						-- mason = false, -- set to false if you don't want this server to be installed with mason
+						-- Use this to add any additional keymaps
+						-- for specific lsp servers
+						-- ---@type LazyKeysSpec[]
+						-- keys = {},
+						settings = {
+							Lua = {
+								workspace = {
+									checkThirdParty = false,
+								},
+								codeLens = {
+									enable = true,
+								},
+								completion = {
+									callSnippet = "Replace",
+								},
+								doc = {
+									privateName = { "^_" },
+								},
+								hint = {
+									enable = true,
+									setType = false,
+									paramType = true,
+									paramName = "Disable",
+									semicolon = "Disable",
+									arrayIndex = "Disable",
+								},
+							},
+						},
+					},
+					gopls = {
+						root_dir = function(...)
+							return require("lspconfig.util").root_pattern("go.work", "go.mod", ".git")(...)
+						end,
+					},
+				},
+				-- you can do any additional lsp server setup here
+				-- return true if you don't want this server to be setup with lspconfig
+				---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
+				setup = {
+					-- example to setup with typescript.nvim
+					-- tsserver = function(_, opts)
+					--   require("typescript").setup({ server = opts })
+					--   return true
+					-- end,
+					-- Specify * to use this function as a fallback for any server
+					-- ["*"] = function(server, opts) end,
+					gopls = function(_, opts)
+						require'lspconfig'.gopls.setup{}
+					end,
+				},
+			}
+			return ret
+		end,
 	},
 }

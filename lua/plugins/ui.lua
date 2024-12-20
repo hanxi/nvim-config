@@ -157,78 +157,17 @@ return {
         },
     },
 
-	--[[
-	--
     -- disable commond line
     {
         "folke/noice.nvim",
         event = "VeryLazy",
         opts = {
-            lsp = {
-                override = {
-                    ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-                    ["vim.lsp.util.stylize_markdown"] = true,
-                    ["cmp.entry.get_documentation"] = true,
-                },
-            },
-            presets = {
+			presets = {
                 bottom_search = false,
                 command_palette = true,
             },
-            popupmenu = {
-                enabled = false,
-            },
-            messages = {
-                enabled = true,
-            },
-            routes = {
-                {
-                    view = "mini",
-                    filter = {
-                        event = { "msg_show", "msg_showmode" },
-                        ["not"] = {
-                            kind = { "confirm", "confirm_sub" },
-                        },
-                    },
-                },
-                {
-                    filter = {
-                        event = "cmdline",
-                        find = "^%s*[/?]",
-                    },
-                    view = "cmdline",
-                },
-            },
         },
     },
-    {
-        "hrsh7th/cmp-cmdline",
-        dependencies = {
-            "hrsh7th/nvim-cmp",
-            "hrsh7th/cmp-buffer",
-        },
-        config = function()
-            local cmp = require("cmp")
-            -- Use buffer source for `/`.
-            cmp.setup.cmdline("/", {
-                mapping = cmp.mapping.preset.cmdline(),
-                sources = {
-                    { name = "buffer" },
-                },
-            })
-
-            -- Use cmdline & path source for ':'.
-            cmp.setup.cmdline(":", {
-                mapping = cmp.mapping.preset.cmdline(),
-                sources = cmp.config.sources({
-                    { name = "path" },
-                }, {
-                    { name = "cmdline" },
-                }),
-            })
-        end,
-    },
-	--]]
 
     {
         "lewis6991/gitsigns.nvim",
