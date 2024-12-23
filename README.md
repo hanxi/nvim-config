@@ -3,11 +3,11 @@
 - 插件使用 [LazyVim](https://github.com/LazyVim/LazyVim) 管理
 - 主要的插件
   - [ibhagwan/fzf-lua](https://github.com/ibhagwan/fzf-lua) 模糊搜索
- 	- [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) lsp 配置 c/c++, go, python, lua, bash
- 	- [bufferline.nvim](https://github.com/akinsho/bufferline.nvim) 使用 tabbar 管理 buffer
- 	- [catppuccin/nvim](https://github.com/catppuccin/nvim) 主题, 使用明色主题 latte
- 	- [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim) 状态栏
- 	- [nvim-tree.lua](https://github.com/kyazdani42/nvim-tree.lua) 目录树
+  - [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) lsp 配置 c/c++, go, python, lua, bash
+  - [bufferline.nvim](https://github.com/akinsho/bufferline.nvim) 使用 tabbar 管理 buffer
+  - [catppuccin/nvim](https://github.com/catppuccin/nvim) 主题, 使用明色主题 latte
+  - [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim) 状态栏
+  - [nvim-tree.lua](https://github.com/kyazdani42/nvim-tree.lua) 目录树
 
 安装脚本见： <https://github.com/hanxi/dotfiles>
 
