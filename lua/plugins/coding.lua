@@ -6,7 +6,6 @@ return {
     {
         "kazhala/close-buffers.nvim",
     },
-
 	{
 		"saghen/blink.cmp",
 		opts = {

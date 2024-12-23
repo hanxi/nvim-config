@@ -67,5 +67,16 @@ return {
 				desc = "Goto Symbol (Workspace)",
 			},
 		},
+		opts = {
+			fzf_opts = {
+				['--cycle'] = true,
+			},
+			files = {
+				rg_opts = '--color=never --files --hidden --follow --glob "*.proto" --glob "error_code.go"',
+			},
+			grep = {
+				rg_opts = '--color=never --column --line-number --no-heading --smart-case --hidden --follow --glob "*.proto" --glob "error_code.go"',
+			}
+		},
 	}
 }
