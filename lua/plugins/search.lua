@@ -72,10 +72,10 @@ return {
 				['--cycle'] = true,
 			},
 			files = {
-				rg_opts = '--color=never --files --hidden --follow --glob "*.proto" --glob "error_code.go"',
+				rg_opts = '--color=never --files --hidden --follow --no-ignore --glob "!*.pb.go"',
 			},
 			grep = {
-				rg_opts = '--color=never --column --line-number --no-heading --smart-case --hidden --follow --glob "*.proto" --glob "error_code.go"',
+				rg_opts = '--color=never --column --line-number --no-heading --smart-case --hidden --follow --no-ignore --glob "!*.pb.go"',
 			}
 		},
 	}
