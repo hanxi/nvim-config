@@ -154,33 +154,6 @@ function M.select_convert_case()
     return M.camel_case(str)
 end
 
-function M.goto_right_window()
-    -- 获取当前窗口 ID 和位置信息
-    local current_win = vim.api.nvim_get_current_win()
-    local current_pos = vim.api.nvim_win_get_position(current_win)
-
-    -- 获取所有窗口列表
-    local win_list = vim.api.nvim_list_wins()
-
-    -- 遍历窗口列表，查找右边的窗口
-    local right_win = nil
-    for _, win in ipairs(win_list) do
-        if win ~= current_win then
-            local pos = vim.api.nvim_win_get_position(win)
-            local width = vim.api.nvim_win_get_width(win)
-            if pos[1] == current_pos[1] and pos[2] > current_pos[2] and pos[2] + width > current_pos[2] then
-                right_win = win
-                break
-            end
-        end
-    end
-
-    -- 切换到右边的窗口
-    if right_win ~= nil then
-        vim.api.nvim_set_current_win(right_win)
-    end
-end
-
 function M.profile(flag)
     local profile_log = vim.fn.expand("~/.cache/nvim/profile.log")
     if flag then

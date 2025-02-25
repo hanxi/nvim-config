@@ -10,6 +10,26 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     end,
 })
 
+-- 4 个空格
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = {"lua", "python"},
+  callback = function()
+    vim.bo.shiftwidth = 4
+    vim.bo.tabstop = 4
+    vim.bo.expandtab = true
+  end,
+})
+
+-- 2 个空格
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "typescript", "javascript", "typescriptreact", "javascriptreact" },
+  callback = function()
+    vim.bo.shiftwidth = 2
+    vim.bo.tabstop = 2
+    vim.bo.expandtab = true
+  end,
+})
+
 vim.cmd('command! ProfileStart lua require("util").profile(true)')
 vim.cmd('command! ProfileEnd lua require("util").profile(false)')
 
