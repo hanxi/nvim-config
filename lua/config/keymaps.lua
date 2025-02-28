@@ -34,3 +34,9 @@ map("v", "<leader>y", function()
     -- Exit visual mode.
     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<esc>", true, false, true), "x", false)
 end, { desc = "Convert select string" })
+
+-- toggle comment
+vim.keymap.set('n', '<C-/>', 'gcc', { remap = true })
+vim.keymap.set('v', '<C-/>', 'gc', { remap = true })
+vim.keymap.set('n', '<C-_>', 'gcc', { remap = true })
+vim.keymap.set('v', '<C-_>', 'gc', { remap = true })
