@@ -47,3 +47,17 @@ vim.g.clipboard = {
         ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
     },
 }
+
+if vim.env.SSH_TTY then
+    local function paste()
+        return {
+            vim.split(vim.fn.getreg(""), "\n"),
+            vim.fn.getregtype(""),
+        }
+    end
+
+    vim.g.clipboard.paste = {
+        ["+"] = paste,
+        ["*"] = paste,
+    }
+end
