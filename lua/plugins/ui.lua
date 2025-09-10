@@ -3,9 +3,14 @@ return {
     {
         "catppuccin/nvim",
         name = "catppuccin",
-		opts = {
-			integrations = { blink_cmp = true },
-		},
+        opts = function(_, opts)
+            local module = require("catppuccin.groups.integrations.bufferline")
+            if module then
+                module.get = module.get_theme
+            end
+            opts.integrations = { blink_cmp = true }
+            return opts
+        end,
     },
 
     {
@@ -77,7 +82,7 @@ return {
                             require("neo-tree.ui.renderer").focus_node(state, node:get_parent_id())
                         end,
                         ["u"] = "navigate_up",
-						["/"] = "noop",
+                        ["/"] = "noop",
                     },
                 },
             },
@@ -87,9 +92,12 @@ return {
     -- tab line
     {
         "akinsho/bufferline.nvim",
-        dependencies = "nvim-tree/nvim-web-devicons",
+        dependencies = {
+            "nvim-tree/nvim-web-devicons",
+            "catppuccin/nvim",
+        },
         opts = {
-            highlights = require("catppuccin.groups.integrations.bufferline").get({
+            highlights = require("catppuccin.groups.integrations.bufferline").get_theme({
                 styles = {
                     "bold",
                 },
@@ -165,7 +173,7 @@ return {
         "folke/noice.nvim",
         event = "VeryLazy",
         opts = {
-			presets = {
+            presets = {
                 bottom_search = false,
                 command_palette = true,
             },
