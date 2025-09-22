@@ -35,6 +35,12 @@ opt.tabstop = 4
 opt.textwidth = 120
 
 -- clipboard
+local function paste()
+    return {
+        vim.split(vim.fn.getreg(""), "\n"),
+        vim.fn.getregtype(""),
+    }
+end
 opt.clipboard = "unnamedplus"
 vim.g.clipboard = {
     name = "OSC 52",
@@ -43,21 +49,13 @@ vim.g.clipboard = {
         ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
     },
     paste = {
-        ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
-        ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+        ["+"] = paste,
+        ["*"] = paste,
     },
 }
 
-if vim.env.SSH_TTY then
-    local function paste()
-        return {
-            vim.split(vim.fn.getreg(""), "\n"),
-            vim.fn.getregtype(""),
-        }
-    end
-
-    vim.g.clipboard.paste = {
-        ["+"] = paste,
-        ["*"] = paste,
-    }
-end
+vim.filetype.add({
+    extension = {
+        sproto = "sproto",
+    },
+})

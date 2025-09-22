@@ -52,6 +52,7 @@ return {
                 "jsdoc",
                 "make",
                 "toml",
+                "sproto",
             },
         },
     },
