@@ -47,9 +47,6 @@ return {
                     enabled = false,
                 },
                 gopls = {
-                    root_dir = function(...)
-                        return require("lspconfig.util").root_pattern("go.work", "go.mod", ".git")(...)
-                    end,
                 },
             },
         },
