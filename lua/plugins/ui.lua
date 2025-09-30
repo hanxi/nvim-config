@@ -3,14 +3,6 @@ return {
     {
         "catppuccin/nvim",
         name = "catppuccin",
-        opts = function(_, opts)
-            local module = require("catppuccin.groups.integrations.bufferline")
-            if module then
-                module.get = module.get_theme
-            end
-            opts.integrations = { blink_cmp = true }
-            return opts
-        end,
     },
 
     {
@@ -98,11 +90,6 @@ return {
             "catppuccin/nvim",
         },
         opts = {
-            highlights = require("catppuccin.groups.integrations.bufferline").get_theme({
-                styles = {
-                    "bold",
-                },
-            }),
             options = {
                 mode = "buffers", -- set to "tabs" to only show tabpages instead
                 numbers = function(opts)
