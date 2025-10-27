@@ -46,8 +46,7 @@ return {
                     mason = true,
                     enabled = false,
                 },
-                gopls = {
-                },
+                gopls = {},
             },
         },
     },
@@ -61,11 +60,14 @@ return {
                 desc = "Goto definition",
             },
         },
-        opts = function()
-            local keys = require("lazyvim.plugins.lsp.keymaps").get()
-            keys[#keys + 1] = { "<C-]>", vim.lsp.buf.definition, desc = "Goto definition" }
-
-            vim.diagnostic.disable() -- 全局禁用所有诊断
-        end,
+        opts = {
+            servers = {
+                ["*"] = {
+                    keys = {
+                        { "<C-]>", "<cmd>lua vim.lsp.buf.definition()<CR>", has = "definition" },
+                    },
+                },
+            },
+        },
     },
 }
