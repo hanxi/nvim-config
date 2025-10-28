@@ -33,26 +33,6 @@ return {
 
     {
         "neovim/nvim-lspconfig",
-        ---@class PluginLspOpts
-        opts = {
-            ---@type lspconfig.options
-            inlay_hints = {
-                enabled = false,
-                exclude = { "vue" }, -- filetypes for which you don't want to enable inlay hints
-            },
-            servers = {
-                vtsls = {},
-                lua_ls = {
-                    mason = true,
-                    enabled = false,
-                },
-                gopls = {},
-            },
-        },
-    },
-
-    {
-        "neovim/nvim-lspconfig",
         keys = {
             {
                 "<C-]>",
@@ -61,7 +41,20 @@ return {
             },
         },
         opts = {
+            inlay_hints = {
+                enabled = false,
+                exclude = { "vue" }, -- filetypes for which you don't want to enable inlay hints
+            },
+            diagnostics = {
+                enable = false,
+            },
             servers = {
+                vtsls = {},
+                lua_ls = {
+                    mason = true,
+                    enabled = false,
+                },
+                gopls = {},
                 ["*"] = {
                     keys = {
                         { "<C-]>", "<cmd>lua vim.lsp.buf.definition()<CR>", has = "definition" },
