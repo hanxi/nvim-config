@@ -47,6 +47,10 @@ return {
             },
             diagnostics = {
                 enable = false,
+                underline = false,
+                virtual_text = false,
+                signs = false,
+                update_in_insert = false,
             },
             servers = {
                 vtsls = {},
